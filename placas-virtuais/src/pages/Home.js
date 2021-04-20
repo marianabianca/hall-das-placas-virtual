@@ -37,7 +37,9 @@ const Home = () => {
             Pesquisar
           </ButtonPrimary>
           <Text fontSize="md">ou</Text>
-          <ButtonTertiary mt="1.25rem">Ver todas as placas</ButtonTertiary>
+          <Link to="/placas">
+            <ButtonTertiary mt="1.25rem">Ver todas as placas</ButtonTertiary>
+          </Link>
         </Flex>
       </Flex>
       <a

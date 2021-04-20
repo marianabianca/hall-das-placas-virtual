@@ -3,9 +3,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./app.css";
-import { Home, Login } from "./pages";
-
-const Results = () => <div>placas</div>;
+import { Home, Login, Results } from "./pages";
 
 function App() {
   return (
