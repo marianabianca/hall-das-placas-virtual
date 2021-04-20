@@ -1,11 +1,10 @@
 import * as React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./app.css";
-import Home from "./Home";
+import { Home, Login } from "./pages";
 
-const Login = () => <div>login</div>;
 const Results = () => <div>placas</div>;
 
 function App() {
