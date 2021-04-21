@@ -1,12 +1,13 @@
 import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { BreadCrumbs, ButtonPrimary } from "../components";
 import { IconGithub, IconGoogle } from "../icons";
 
-const LoginBox = ({ title }) => (
-  <Flex direction="column" justify="center" align="center" mr="3.25rem">
-    <Text fontSize="5xl" mb="1rem">
+const LoginBox = ({ title, to }) => (
+  <Flex direction="column" justify="center" align="center" mx="1.5rem">
+    <Text fontSize="4xl" mb="1rem">
       {title}
     </Text>
     <Box
@@ -16,10 +17,12 @@ const LoginBox = ({ title }) => (
       bg="white"
       p="2.5rem"
     >
-      <Text fontSize="2xl">Fazer login com .ccc.ufcg.edu.br</Text>
+      <Text fontSize="lg">Fazer login com .ccc.ufcg.edu.br</Text>
       <Flex align="center" justify="center" mt="1.5rem">
         <IconGoogle size="1.25rem" />
-        <ButtonPrimary ml="1.25rem">Login com conta Google</ButtonPrimary>
+        <Link to={to}>
+          <ButtonPrimary ml="1.25rem">Login com conta Google</ButtonPrimary>
+        </Link>
       </Flex>
     </Box>
   </Flex>
@@ -35,8 +38,8 @@ const Login = () => {
         ]}
       />
       <Flex align="center" justify="center" mt="20vh">
-        <LoginBox title="Login aluno" />
-        <LoginBox title="Login organizador" />
+        <LoginBox title="Login aluno" to="/estudante" />
+        <LoginBox title="Login organizador" to="/organizador" />
       </Flex>
 
       <a

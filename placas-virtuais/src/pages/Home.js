@@ -17,13 +17,13 @@ const Home = () => {
           Login
         </ButtonTertiary>
       </Link>
-      <Flex align="center" justify="center" mt="20vh">
+      <Flex align="center" justify="center" mt="15vh">
         <Flex align="center" direction="column">
           <Image src={logoCCC} alt="Computação UFCG" w="18.75rem" />
           <Text fontSize="5xl" mt="1.25rem">
             Placas de formatura
           </Text>
-          <Box bg="white" w="30rem" borderRadius="0.25rem" mt="1.25rem">
+          <Box bg="white" w="30rem" borderRadius="0.5rem" mt="1.25rem">
             <Input
               placeholder="Período de graduação ou nome do graduado"
               w="30rem"
