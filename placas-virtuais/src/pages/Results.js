@@ -1,8 +1,13 @@
-import { Box, Divider, Flex, IconButton, Text } from "@chakra-ui/react";
+import { Divider, Flex, IconButton, Text } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { BreadCrumbs, ButtonSecondary, ButtonTertiary } from "../components";
+import {
+  BreadCrumbs,
+  ButtonSecondary,
+  ButtonTertiary,
+  MyBox,
+} from "../components";
 import { IconGithub } from "../icons";
 
 const mock = [
@@ -40,14 +45,7 @@ const Results = () => {
             Resultados
           </Text>
           <Flex direction="column" align="center" justify="center">
-            <Box
-              borderRadius="0.5rem"
-              border="1px"
-              borderColor="gray.300"
-              bg="white"
-              p="2.5rem"
-              minW="50vw"
-            >
+            <MyBox minW="50vw">
               {mock.map((elem, i) => (
                 <>
                   <Flex justify="space-between" align="center">
@@ -62,7 +60,7 @@ const Results = () => {
                   {i < mock.length - 1 && <Divider my="0.5rem" />}
                 </>
               ))}
-            </Box>
+            </MyBox>
             <Link to="/">
               <ButtonTertiary mt="1.75rem">Voltar</ButtonTertiary>
             </Link>

@@ -22,7 +22,7 @@ export const BreadCrumbs = ({ pages }: { pages: BreadCrumbsProps }) => (
   <Box bg="grey.200" p="0.5rem" m="1.5rem" borderRadius="0.5rem">
     <Breadcrumb spacing="1rem" separator={<IconArrow size="0.25rem" />}>
       {pages.map((page) => (
-        <BreadcrumbItem isCurrentPage={page.isCurrentPage}>
+        <BreadcrumbItem key={page} isCurrentPage={page.isCurrentPage}>
           <BreadcrumbLink as={Link} to={page.to}>
             {page.isCurrentPage ? <b>{page.title}</b> : <>{page.title}</>}
           </BreadcrumbLink>

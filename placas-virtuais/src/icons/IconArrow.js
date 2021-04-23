@@ -11,8 +11,8 @@ export const IconArrow = ({ size }) => (
     <path
       d="M0.593811 1.18762L3.40631 4.00012L0.593811 6.81262"
       stroke="#3182CE"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

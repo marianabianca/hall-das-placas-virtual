@@ -1,8 +1,8 @@
-import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
+import { Flex, IconButton, Text } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { BreadCrumbs, ButtonPrimary } from "../components";
+import { BreadCrumbs, ButtonPrimary, MyBox } from "../components";
 import { IconGithub, IconGoogle } from "../icons";
 
 const LoginBox = ({ title, to }) => (
@@ -10,13 +10,7 @@ const LoginBox = ({ title, to }) => (
     <Text fontSize="4xl" mb="1rem">
       {title}
     </Text>
-    <Box
-      borderRadius="0.5rem"
-      border="1px"
-      borderColor="gray.300"
-      bg="white"
-      p="2.5rem"
-    >
+    <MyBox>
       <Text fontSize="lg">Fazer login com .ccc.ufcg.edu.br</Text>
       <Flex align="center" justify="center" mt="1.5rem">
         <IconGoogle size="1.25rem" />
@@ -24,7 +18,7 @@ const LoginBox = ({ title, to }) => (
           <ButtonPrimary ml="1.25rem">Login com conta Google</ButtonPrimary>
         </Link>
       </Flex>
-    </Box>
+    </MyBox>
   </Flex>
 );
 
