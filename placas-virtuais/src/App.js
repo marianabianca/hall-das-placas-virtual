@@ -3,14 +3,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./app.css";
-import {
-  Board,
-  Home,
-  Login,
-  OrganizerForm,
-  Results,
-  StudentForm,
-} from "./pages";
+import { Board, Home, Login, OrganizerForm, Results } from "./pages";
 
 function App() {
   return (
@@ -25,9 +18,6 @@ function App() {
           </Route>
           <Route exact path="/resultados">
             <Results />
-          </Route>
-          <Route exact path="/estudante">
-            <StudentForm />
           </Route>
           <Route exact path="/organizador">
             <OrganizerForm />
