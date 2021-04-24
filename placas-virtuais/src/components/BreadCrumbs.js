@@ -18,8 +18,13 @@ interface BreadCrumbsProps {
   pages: Page[];
 }
 
-export const BreadCrumbs = ({ pages }: { pages: BreadCrumbsProps }) => (
-  <Box bg="grey.200" p="0.5rem" m="1.5rem" borderRadius="0.5rem">
+export const BreadCrumbs = ({
+  pages,
+  ...props
+}: {
+  pages: BreadCrumbsProps,
+}) => (
+  <Box py="0.5rem" px="1.5rem" m="1.5rem" borderRadius="0.5rem" {...props}>
     <Breadcrumb spacing="1rem" separator={<IconArrow size="0.25rem" />}>
       {pages.map((page) => (
         <BreadcrumbItem key={page} isCurrentPage={page.isCurrentPage}>

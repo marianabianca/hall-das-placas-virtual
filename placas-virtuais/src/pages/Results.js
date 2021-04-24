@@ -1,6 +1,6 @@
 import { Divider, Flex, IconButton, Text } from "@chakra-ui/react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import {
   BreadCrumbs,
@@ -30,6 +30,8 @@ const mock = [
 ];
 
 const Results = () => {
+  const history = useHistory();
+
   return (
     <>
       <BreadCrumbs
@@ -55,15 +57,17 @@ const Results = () => {
                         {elem.nome}
                       </Text>
                     </Flex>
-                    <ButtonSecondary size="sm">Visualizar</ButtonSecondary>
+                    <Link to="/placa">
+                      <ButtonSecondary size="sm">Visualizar</ButtonSecondary>
+                    </Link>
                   </Flex>
                   {i < mock.length - 1 && <Divider my="0.5rem" />}
                 </>
               ))}
             </MyBox>
-            <Link to="/">
-              <ButtonTertiary mt="1.75rem">Voltar</ButtonTertiary>
-            </Link>
+            <ButtonTertiary mt="1.75rem" onClick={history.goBack}>
+              Voltar
+            </ButtonTertiary>
           </Flex>
         </Flex>
       </Flex>

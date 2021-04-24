@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Form, Formik } from "formik";
 import {
   BreadCrumbs,
+  ButtonPrimary,
   ButtonTertiary,
   InputForm,
   MyBox,
@@ -104,16 +105,16 @@ const OrganizerForm = () => {
                         );
                       })}
                     </MyBox>
-                    <button
+                    <ButtonPrimary
                       as="button"
-                      // mt="1.25rem"
-                      // mb="1.25rem"
+                      mt="1.25rem"
+                      mb="1.25rem"
                       type="submit"
-                      // isLoading={props.isSubmitting}
+                      isLoading={props.isSubmitting}
                       onClick={() => handleSubmit(props)}
                     >
                       Salvar
-                    </button>
+                    </ButtonPrimary>
                   </Flex>
                 </Form>
               )}

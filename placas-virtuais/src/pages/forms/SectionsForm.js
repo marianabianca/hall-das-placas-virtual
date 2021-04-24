@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { Field, FieldArray } from "formik";
 import React from "react";
+import { ButtonSecondary } from "../../components";
 
 const SectionsForm = ({ props, formFields }) => (
   <FieldArray name="sections">
@@ -31,30 +32,36 @@ const SectionsForm = ({ props, formFields }) => (
                     defaultValue={section.type}
                     {...field}
                   >
-                    <option value="text">Texto com título</option>
+                    <option value="titleText">Texto com título</option>
+                    <option value="text">Texto sem título</option>
                     <option value="list">Lista de nomes com título</option>
                   </Select>
                 )}
               </Field>
-              <Field name={`sections.${index}.title`}>
-                {({ field }) => (
-                  <Input
-                    placeholder="Digite o títlo"
-                    value={section.title}
-                    my="1rem"
-                    {...field}
-                  />
-                )}
-              </Field>
-              <Field name={`sections.${index}.text`}>
+              {section.type !== "text" && (
+                <>
+                  <Field name={`sections.${index}.title`}>
+                    {({ field }) => (
+                      <Input
+                        placeholder="Digite o títlo"
+                        value={section.title}
+                        mt="1rem"
+                        {...field}
+                      />
+                    )}
+                  </Field>
+                </>
+              )}
+              <Field name={`sections.${index}.content`}>
                 {({ field }) => (
                   <Textarea
                     placeholder={
                       section.type === "list"
                         ? formFields.sections.placeholderText.list
-                        : formFields.sections.placeholderText.text
+                        : formFields.sections.placeholderText.content
                     }
-                    value={section.text}
+                    value={section.content}
+                    mt="1rem"
                     {...field}
                   />
                 )}
@@ -63,19 +70,19 @@ const SectionsForm = ({ props, formFields }) => (
           </Flex>
         ))}
         <Flex direction="column">
-          <button
+          <ButtonSecondary
             type="button"
             onClick={() => {
               push({
                 type: "",
                 title: "",
-                text: "",
+                content: "",
               });
             }}
             mt="1rem"
           >
             Adicionar nova sessão
-          </button>
+          </ButtonSecondary>
         </Flex>
       </>
     )}
