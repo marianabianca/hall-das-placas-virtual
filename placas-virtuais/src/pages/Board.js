@@ -113,7 +113,7 @@ const Board = () => {
         w="fit-content"
         pages={[
           { title: "Página inicial", to: "/", isCurrentPage: false },
-          { title: "Resultados", to: "/results", isCurrentPage: false },
+          { title: "Resultados", to: "/resultados", isCurrentPage: false },
           { title: "Placa", to: "/placa", isCurrentPage: true },
         ]}
       />

@@ -1,9 +1,13 @@
 import React from "react";
-import { Box, Flex, IconButton, Image, Input, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Input, Text } from "@chakra-ui/react";
 
 import logoCCC from "../LogoCCC.png";
-import { BreadCrumbs, ButtonPrimary, ButtonTertiary } from "../components";
-import { IconGithub } from "../icons";
+import {
+  BreadCrumbs,
+  ButtonGithub,
+  ButtonPrimary,
+  ButtonTertiary,
+} from "../components";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -42,20 +46,7 @@ const Home = () => {
           </Link>
         </Flex>
       </Flex>
-      <a
-        href="https://github.com/marianabianca/placa-virtual"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <IconButton
-          variant="link"
-          py="0.5rem"
-          icon={<IconGithub size="1.5rem" />}
-          bottom="2.5rem"
-          right="3rem"
-          position="fixed"
-        />
-      </a>
+      <ButtonGithub />
     </>
   );
 };

@@ -58,7 +58,7 @@ const SectionsForm = ({ props, formFields }) => (
                     placeholder={
                       section.type === "list"
                         ? formFields.sections.placeholderText.list
-                        : formFields.sections.placeholderText.content
+                        : formFields.sections.placeholderText.text
                     }
                     value={section.content}
                     mt="1rem"
