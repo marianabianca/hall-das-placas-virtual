@@ -44,11 +44,17 @@ const Login = () => {
           { title: "Login", to: "/login", isCurrentPage: true },
         ]}
       />
-      <Flex direction="column" justify="center" align="center" mx="1.5rem">
+      <Flex
+        direction="column"
+        justify="center"
+        align="center"
+        mx="1.5rem"
+        mt="15vh"
+      >
         <Text fontSize="4xl" mb="1rem">
           Login organizador
         </Text>
-        <MyBox minW="35vw">
+        <MyBox minW="35vw" p="1.5rem">
           <Formik
             initialValues={{ login: "", password: "" }}
             onSubmit={() => {
@@ -76,7 +82,7 @@ const Login = () => {
                         isInvalid={
                           form.errors.password && form.touched.password
                         }
-                        mt="2rem"
+                        mt="1.5rem"
                       >
                         <FormLabel htmlFor="password">Senha</FormLabel>
                         <InputGroup size="md">
@@ -92,7 +98,7 @@ const Login = () => {
                               size="sm"
                               onClick={handleClick}
                             >
-                              {show ? "Esconder" : "Mostrar"}
+                              {show ? "Esconder" : " Mostrar "}
                             </Button>
                           </InputRightElement>
                         </InputGroup>
@@ -103,7 +109,7 @@ const Login = () => {
                     )}
                   </Field>
                   <ButtonPrimary
-                    mt="2rem"
+                    mt="1.5rem"
                     type="submit"
                     isLoading={props.isSubmitting}
                   >

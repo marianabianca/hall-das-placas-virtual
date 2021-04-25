@@ -57,8 +57,8 @@ const SectionsForm = ({ props, formFields }) => (
                   <Textarea
                     placeholder={
                       section.type === "list"
-                        ? formFields.sections.placeholderText.list
-                        : formFields.sections.placeholderText.text
+                        ? formFields.placeholderText.list
+                        : formFields.placeholderText.text
                     }
                     value={section.content}
                     mt="1rem"
@@ -73,6 +73,7 @@ const SectionsForm = ({ props, formFields }) => (
           <ButtonSecondary
             type="button"
             onClick={() => {
+              console.log(props);
               push({
                 type: "",
                 title: "",
