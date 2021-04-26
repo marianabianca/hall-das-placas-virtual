@@ -8,9 +8,12 @@ import {
   ButtonPrimary,
   ButtonTertiary,
 } from "../components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { Field, Form, Formik } from "formik";
 
 const Home = () => {
+  const history = useHistory();
+
   return (
     <>
       <BreadCrumbs
@@ -27,21 +30,38 @@ const Home = () => {
           <Text fontSize="5xl" mt="1.25rem">
             Placas de formatura
           </Text>
-          <Box bg="white" w="30rem" borderRadius="0.5rem" mt="1.25rem">
-            <Input
-              placeholder="Período de graduação ou nome do graduado"
-              w="30rem"
-            />
-          </Box>
-          <ButtonPrimary
-            onClick={() => console.log("clicou")}
-            mt="1.25rem"
-            mb="1.25rem"
+          <Formik
+            initialValues={{ search: "" }}
+            onSubmit={(values) => {
+              if (values.search.length > 0) {
+                history.push(`/resultados?search=${values.search}`);
+              }
+            }}
           >
-            Pesquisar
-          </ButtonPrimary>
+            {() => (
+              <Form>
+                <Flex align="center" justify="center" direction="column">
+                  <Box bg="white" w="30rem" borderRadius="0.5rem" mt="1.25rem">
+                    <Field name="search">
+                      {({ field }) => (
+                        <Input
+                          {...field}
+                          id="search"
+                          placeholder="Período de graduação ou nome do graduado"
+                          w="30rem"
+                        />
+                      )}
+                    </Field>
+                  </Box>
+                  <ButtonPrimary type="submit" mt="1.25rem" mb="1.25rem">
+                    Pesquisar
+                  </ButtonPrimary>
+                </Flex>
+              </Form>
+            )}
+          </Formik>
           <Text fontSize="md">ou</Text>
-          <Link to="/resultados">
+          <Link to="/resultados?search=all">
             <ButtonTertiary mt="1.25rem">Ver todas as placas</ButtonTertiary>
           </Link>
         </Flex>

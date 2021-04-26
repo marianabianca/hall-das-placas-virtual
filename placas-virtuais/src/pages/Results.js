@@ -1,6 +1,6 @@
 import { Divider, Flex, IconButton, Spinner, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
 import {
   BreadCrumbs,
@@ -13,16 +13,30 @@ import { db } from "./firebaseClient";
 
 const Results = () => {
   const history = useHistory();
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState(undefined);
+  const query = new URLSearchParams(useLocation().search);
 
   useEffect(() => {
-    const getResults = async () => {
-      const result = (await db.collection("placas").get()).docs;
-      result.sort(sortByGraduationTime).reverse();
-      setResults(result);
-    };
-    getResults();
-  }, []);
+    const searchTerm = query.get("search");
+    if (searchTerm && RegExp("(19|20)[0-9][0-9]\\.[0-3]").test(searchTerm)) {
+    } else {
+      const getResults = async () => {
+        const result = (await db.collection("placas").get()).docs;
+        result.sort(sortByGraduationTime).reverse();
+        if (searchTerm && searchTerm !== "all") {
+          const filtered = result.filter((e) =>
+            e
+              .data()
+              .people.some((p) => p.name.toLowerCase().includes(searchTerm))
+          );
+          setResults(filtered);
+        } else {
+          setResults(result);
+        }
+      };
+      getResults();
+    }
+  });
 
   const sortByGraduationTime = (a, b) => {
     const x = a.data().graduationTime;
@@ -52,25 +66,31 @@ const Results = () => {
           </Text>
           <Flex direction="column" align="center" justify="center">
             <MyBox minW="50vw">
-              {results.length > 0 ? (
-                results.map((elem, i) => (
-                  <>
-                    <Flex justify="space-between" align="center">
-                      <Flex direction="column" align="start">
-                        <Text fontSize="xl">
-                          Turma de {elem.data().graduationTime}
-                        </Text>
-                        <Text fontSize="sm" color="grey.500">
-                          {elem.data().name}
-                        </Text>
+              {results ? (
+                results.length > 0 ? (
+                  results.map((elem, i) => (
+                    <>
+                      <Flex justify="space-between" align="center">
+                        <Flex direction="column" align="start">
+                          <Text fontSize="xl">
+                            Turma de {elem.data().graduationTime}
+                          </Text>
+                          <Text fontSize="sm" color="grey.500">
+                            {elem.data().name}
+                          </Text>
+                        </Flex>
+                        <Link to={`/placa/${elem.data().graduationTime}`}>
+                          <ButtonSecondary size="sm">
+                            Visualizar
+                          </ButtonSecondary>
+                        </Link>
                       </Flex>
-                      <Link to={`/placa/${elem.data().graduationTime}`}>
-                        <ButtonSecondary size="sm">Visualizar</ButtonSecondary>
-                      </Link>
-                    </Flex>
-                    {i < results.length - 1 && <Divider my="0.5rem" />}
-                  </>
-                ))
+                      {i < results.length - 1 && <Divider my="0.5rem" />}
+                    </>
+                  ))
+                ) : (
+                  <Text fontSize="2xl">Nenhum resultado encontrado</Text>
+                )
               ) : (
                 <Flex align="center" justify="center">
                   <Spinner size="xl" />
