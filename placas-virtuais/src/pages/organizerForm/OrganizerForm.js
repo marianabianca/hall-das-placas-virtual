@@ -8,6 +8,7 @@ import {
   FormLabel,
   Input,
   Radio,
+  RadioGroup,
   Stack,
   Text,
   Textarea,
@@ -25,6 +26,7 @@ import Dialog from "./Dialog";
 import { organizerFields } from "./formFields";
 import SectionsForm from "./SectionsForm";
 import { csvJSON } from "./utils";
+import { db } from "../firebaseClient";
 
 const OrganizerForm = () => {
   const toast = useToast();
@@ -51,7 +53,7 @@ const OrganizerForm = () => {
   };
 
   const peopleCSVFormat =
-    "CSV separado por ; (ponto e vírgula)\n" +
+    "CSV separado por , (vírgula)\n" +
     "\nname: Nome do graduado (obrigatório)" +
     "\nenterTime: Período que entrou no curso <AAAA.P> (obrigatório)" +
     "\ngraduationTime: Período de graduação <AAAA.P> (obrigatório)" +
@@ -75,7 +77,8 @@ const OrganizerForm = () => {
         ? "Os dados da turma foram salvos!"
         : Object.values(props.errors)[0] ?? "Preencha todos os dados.",
       status: verification ? "success" : "warning",
-      duration: 9000,
+      duration: 1000,
+      position: "bottom-right",
       isClosable: true,
     });
   };
@@ -104,15 +107,12 @@ const OrganizerForm = () => {
           <Flex justify="center" align="center" direction="column">
             <Formik
               initialValues={initialValues}
-              onSubmit={(values, actions) => {
+              onSubmit={async (values, actions) => {
                 const formattedValues = {
                   ...values,
                   people: csvJSON(values.people),
                 };
-                setTimeout(() => {
-                  alert(JSON.stringify(formattedValues, null, 2));
-                  actions.setSubmitting(false);
-                }, 1000);
+                await db.collection("placas").add(formattedValues);
               }}
             >
               {(props) => (
@@ -163,11 +163,24 @@ const OrganizerForm = () => {
                                       {fieldAttributes.label}
                                     </FormLabel>
                                     <Stack direction="row">
-                                      {fieldAttributes.options.map((option) => (
-                                        <Radio {...field} value={option}>
-                                          <Box w="2rem" h="2rem" bg={option} />
-                                        </Radio>
-                                      ))}
+                                      <RadioGroup {...field}>
+                                        {fieldAttributes.options.map(
+                                          (option) => (
+                                            <Radio
+                                              {...field}
+                                              value={option}
+                                              mt="0.5rem"
+                                            >
+                                              <Box
+                                                w="2rem"
+                                                h="2rem"
+                                                mr="1rem"
+                                                bg={option}
+                                              />
+                                            </Radio>
+                                          )
+                                        )}
+                                      </RadioGroup>
                                     </Stack>
                                   </FormControl>
                                 )}

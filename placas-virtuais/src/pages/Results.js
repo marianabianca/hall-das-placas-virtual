@@ -1,5 +1,5 @@
-import { Divider, Flex, IconButton, Text } from "@chakra-ui/react";
-import React from "react";
+import { Divider, Flex, IconButton, Spinner, Text } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import {
@@ -9,28 +9,32 @@ import {
   MyBox,
 } from "../components";
 import { IconGithub } from "../icons";
-
-const mock = [
-  {
-    periodo: "2021.1",
-    nome: "turma 1",
-  },
-  {
-    periodo: "2021.2",
-    nome: "turma 2",
-  },
-  {
-    periodo: "2022.1",
-    nome: "turma 3",
-  },
-  {
-    periodo: "2022.2",
-    nome: "turma 4",
-  },
-];
+import { db } from "./firebaseClient";
 
 const Results = () => {
   const history = useHistory();
+  const [results, setResults] = useState([]);
+
+  useEffect(() => {
+    const getResults = async () => {
+      const result = (await db.collection("placas").get()).docs;
+      result.sort(sortByGraduationTime).reverse();
+      setResults(result);
+    };
+    getResults();
+  }, []);
+
+  const sortByGraduationTime = (a, b) => {
+    const x = a.data().graduationTime;
+    const y = b.data().graduationTime;
+    if (x < y) {
+      return -1;
+    }
+    if (x > y) {
+      return 1;
+    }
+    return 0;
+  };
 
   return (
     <>
@@ -48,22 +52,31 @@ const Results = () => {
           </Text>
           <Flex direction="column" align="center" justify="center">
             <MyBox minW="50vw">
-              {mock.map((elem, i) => (
-                <>
-                  <Flex justify="space-between" align="center">
-                    <Flex direction="column" align="start">
-                      <Text fontSize="xl">Turma de {elem.periodo}</Text>
-                      <Text fontSize="sm" color="grey.500">
-                        {elem.nome}
-                      </Text>
+              {results.length > 0 ? (
+                results.map((elem, i) => (
+                  <>
+                    <Flex justify="space-between" align="center">
+                      <Flex direction="column" align="start">
+                        <Text fontSize="xl">
+                          Turma de {elem.data().graduationTime}
+                        </Text>
+                        <Text fontSize="sm" color="grey.500">
+                          {elem.data().name}
+                        </Text>
+                      </Flex>
+                      <Link to={`/placa/${elem.data().graduationTime}`}>
+                        <ButtonSecondary size="sm">Visualizar</ButtonSecondary>
+                      </Link>
                     </Flex>
-                    <Link to="/placa">
-                      <ButtonSecondary size="sm">Visualizar</ButtonSecondary>
-                    </Link>
-                  </Flex>
-                  {i < mock.length - 1 && <Divider my="0.5rem" />}
-                </>
-              ))}
+                    {i < results.length - 1 && <Divider my="0.5rem" />}
+                  </>
+                ))
+              ) : (
+                <Flex align="center" justify="center">
+                  <Spinner size="xl" />
+                </Flex>
+              )}
+              {}
             </MyBox>
             <ButtonTertiary mt="1.75rem" onClick={history.goBack}>
               Voltar
