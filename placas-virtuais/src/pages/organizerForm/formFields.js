@@ -12,11 +12,11 @@ const validateGroupName = (name) => {
   return error;
 };
 
-const validateGraduationTime = (time) => {
+const validateGraduationSemester = (semester) => {
   let error;
-  if (!time) {
+  if (!semester) {
     error = "Período de graduação é obrigatório.";
-  } else if (!RegExp("(19|20)[0-9][0-9]\\.[0-3]").test(time)) {
+  } else if (!RegExp("(19|20)[0-9][0-9]\\.[0-3]").test(semester)) {
     error =
       "Formato de período de graduação incorreto. Formato correto: AAAA.P (ex.: 2019.1).";
   }
@@ -28,9 +28,10 @@ const validateGroupPhoto = (url) => {
   if (!url) {
     error = "Imagem de turma é obrigatória.";
     // eslint-disable-next-line no-useless-escape
-  } else if (!RegExp("https?://.*.(?:png|jpg)").test(url)) {
-    error = "A URL não corresponde a uma imagem no formato PNG ou JPG.";
   }
+  // else if (!RegExp("https?://.*.(?:png|jpg)").test(url)) {
+  //   error = "A URL não corresponde a uma imagem no formato PNG ou JPG.";
+  // }
   return error;
 };
 
@@ -58,11 +59,11 @@ export const organizerFields = [
   },
   {
     inputType: "input",
-    name: "graduationTime",
+    name: "graduationSemester",
     isRequired: true,
     label: "Período de graduação",
     placeholder: "Digite no formato AAAA.P ex.: 2019.1",
-    validateFunc: validateGraduationTime,
+    validateFunc: validateGraduationSemester,
   },
   {
     inputType: "input",

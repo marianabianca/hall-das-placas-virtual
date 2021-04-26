@@ -10,7 +10,7 @@ import {
 import React from "react";
 import { ButtonTertiary } from "../../components";
 
-const Dialog = ({ isOpen, cancelRef, onClose, onConfirm, time }) => (
+const Dialog = ({ isOpen, cancelRef, onClose, onConfirm, semester }) => (
   <AlertDialog
     isOpen={isOpen}
     leastDestructiveRef={cancelRef}
@@ -24,7 +24,7 @@ const Dialog = ({ isOpen, cancelRef, onClose, onConfirm, time }) => (
 
         <AlertDialogBody>
           Você tem certeza que deseja <b>atualizar</b> os dados da placa da
-          turma de <b>{time}</b>?
+          turma de <b>{semester}</b>?
         </AlertDialogBody>
 
         <AlertDialogFooter>

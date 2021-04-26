@@ -22,7 +22,7 @@ function App() {
           <Route exact path="/organizador">
             <OrganizerForm />
           </Route>
-          <Route exact path="/placa">
+          <Route exact path="/placa/:semester">
             <Board />
           </Route>
         </Switch>

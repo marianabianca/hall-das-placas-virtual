@@ -15,14 +15,14 @@ const Results = () => {
   const history = useHistory();
   const [results, setResults] = useState(undefined);
   const query = new URLSearchParams(useLocation().search);
+  const searchTerm = query.get("search");
 
   useEffect(() => {
-    const searchTerm = query.get("search");
     if (searchTerm && RegExp("(19|20)[0-9][0-9]\\.[0-3]").test(searchTerm)) {
     } else {
       const getResults = async () => {
         const result = (await db.collection("placas").get()).docs;
-        result.sort(sortByGraduationTime).reverse();
+        result.sort(sortByGraduationSemester);
         if (searchTerm && searchTerm !== "all") {
           const filtered = result.filter((e) =>
             e
@@ -36,16 +36,16 @@ const Results = () => {
       };
       getResults();
     }
-  });
+  }, [searchTerm]);
 
-  const sortByGraduationTime = (a, b) => {
-    const x = a.data().graduationTime;
-    const y = b.data().graduationTime;
+  const sortByGraduationSemester = (a, b) => {
+    const x = a.data().graduationSemester;
+    const y = b.data().graduationSemester;
     if (x < y) {
-      return -1;
+      return 1;
     }
     if (x > y) {
-      return 1;
+      return -1;
     }
     return 0;
   };
@@ -73,17 +73,22 @@ const Results = () => {
                       <Flex justify="space-between" align="center">
                         <Flex direction="column" align="start">
                           <Text fontSize="xl">
-                            Turma de {elem.data().graduationTime}
+                            Turma de {elem.data().graduationSemester}
                           </Text>
                           <Text fontSize="sm" color="grey.500">
                             {elem.data().name}
                           </Text>
                         </Flex>
-                        <Link to={`/placa/${elem.data().graduationTime}`}>
-                          <ButtonSecondary size="sm">
-                            Visualizar
-                          </ButtonSecondary>
-                        </Link>
+                        <ButtonSecondary
+                          size="sm"
+                          onClick={() =>
+                            history.push(
+                              `/placa/${elem.data().graduationSemester}`
+                            )
+                          }
+                        >
+                          Visualizar
+                        </ButtonSecondary>
                       </Flex>
                       {i < results.length - 1 && <Divider my="0.5rem" />}
                     </>
@@ -98,7 +103,7 @@ const Results = () => {
               )}
               {}
             </MyBox>
-            <ButtonTertiary mt="1.75rem" onClick={history.goBack}>
+            <ButtonTertiary mt="1.75rem" onClick={() => history.push("/")}>
               Voltar
             </ButtonTertiary>
           </Flex>

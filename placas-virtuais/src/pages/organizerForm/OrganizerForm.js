@@ -45,7 +45,7 @@ const OrganizerForm = () => {
 
   let initialValues = {
     name: "",
-    graduationTime: "",
+    graduationSemester: "",
     groupPhoto: "",
     color: "",
     people: "",
@@ -55,8 +55,8 @@ const OrganizerForm = () => {
   const peopleCSVFormat =
     "CSV separado por , (vírgula)\n" +
     "\nname: Nome do graduado (obrigatório)" +
-    "\nenterTime: Período que entrou no curso <AAAA.P> (obrigatório)" +
-    "\ngraduationTime: Período de graduação <AAAA.P> (obrigatório)" +
+    "\nenterSemester: Período que entrou no curso <AAAA.P> (obrigatório)" +
+    "\ngraduationSemester: Período de graduação <AAAA.P> (obrigatório)" +
     "\nindividualPhoto: Link para uma imagem QUADRADA individual (obrigatório)" +
     "\nlinkedin: Link do perfil pessoal no Linkedin (opcional)";
 
@@ -64,20 +64,20 @@ const OrganizerForm = () => {
     const values = props.values;
     const lackValues = !(
       values.name &
-      values.graduationTime &
+      values.graduationSemester &
       values.groupPhoto &
       values.color &
       values.people
     );
     const hasErrors = Object.keys(props.errors).length > 0;
-    const verification = !(!lackValues | hasErrors);
+    const verification = !(lackValues | hasErrors);
     toast({
       title: verification ? "Sucesso" : "Atenção",
       description: verification
         ? "Os dados da turma foram salvos!"
         : Object.values(props.errors)[0] ?? "Preencha todos os dados.",
       status: verification ? "success" : "warning",
-      duration: 1000,
+      duration: 3000,
       position: "bottom-right",
       isClosable: true,
     });
@@ -243,16 +243,16 @@ const OrganizerForm = () => {
                       Salvar
                     </ButtonPrimary>
                   </Flex>
+                  <Dialog
+                    cancelRef={cancelRef}
+                    onClose={() => setIsOpen(false)}
+                    isOpen={isOpen}
+                    onConfirm={onConfirm}
+                    semester={props.values.graduationSemester}
+                  />
                 </Form>
               )}
             </Formik>
-            <Dialog
-              cancelRef={cancelRef}
-              onClose={() => setIsOpen(false)}
-              isOpen={isOpen}
-              onConfirm={onConfirm}
-              time="2021.1"
-            />
           </Flex>
         </Flex>
       </Flex>
