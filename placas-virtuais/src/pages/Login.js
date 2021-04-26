@@ -8,22 +8,26 @@ import {
   InputGroup,
   InputRightElement,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
 import { BreadCrumbs, ButtonGithub, ButtonPrimary, MyBox } from "../components";
+import { signIn } from "./firebaseAuth";
 
 const Login = () => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
   const history = useHistory();
 
+  const toast = useToast();
+
   const validateLogin = (value) => {
     let error;
     if (!value) {
-      error = "Preencha o login.";
+      error = "Preencha o email.";
     }
     return error;
   };
@@ -56,23 +60,33 @@ const Login = () => {
         </Text>
         <MyBox minW="35vw" p="1.5rem">
           <Formik
-            initialValues={{ login: "", password: "" }}
-            onSubmit={() => {
-              console.log("SUBMITOU");
-              history.push("/organizador");
+            initialValues={{ email: "", password: "" }}
+            onSubmit={async (values) => {
+              try {
+                await signIn(values.email, values.password);
+                history.push("/organizador");
+              } catch (e) {
+                toast({
+                  title: "Não foi possível logar",
+                  description: "Cheque o email e a senha. Tente novamente.",
+                  status: "error",
+                  duration: 9000,
+                  isClosable: true,
+                });
+              }
             }}
           >
             {(props) => (
               <Form>
                 <Flex direction="column" align="center" justify="center">
-                  <Field name="login" validate={validateLogin}>
+                  <Field name="email" validate={validateLogin}>
                     {({ field, form }) => (
                       <FormControl
-                        isInvalid={form.errors.login && form.touched.login}
+                        isInvalid={form.errors.email && form.touched.email}
                       >
-                        <FormLabel htmlFor="login">Login</FormLabel>
-                        <Input {...field} id="login" placeholder="Usuário" />
-                        <FormErrorMessage>{form.errors.login}</FormErrorMessage>
+                        <FormLabel htmlFor="email">Login</FormLabel>
+                        <Input {...field} id="email" placeholder="Email" />
+                        <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                       </FormControl>
                     )}
                   </Field>
@@ -115,6 +129,7 @@ const Login = () => {
                   >
                     Entrar
                   </ButtonPrimary>
+                  {/* TODO esqueci a senha */}
                 </Flex>
               </Form>
             )}

@@ -73,7 +73,6 @@ const SectionsForm = ({ props, formFields }) => (
           <ButtonSecondary
             type="button"
             onClick={() => {
-              console.log(props);
               push({
                 type: "",
                 title: "",

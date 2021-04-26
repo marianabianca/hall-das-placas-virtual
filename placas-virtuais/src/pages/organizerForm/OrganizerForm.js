@@ -14,7 +14,7 @@ import {
   Textarea,
   useToast,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Field, Form, Formik } from "formik";
 import {
   BreadCrumbs,
@@ -27,8 +27,10 @@ import { organizerFields } from "./formFields";
 import SectionsForm from "./SectionsForm";
 import { csvJSON } from "./utils";
 import { db } from "../firebaseClient";
+import { auth } from "../firebaseAuth";
 
 const OrganizerForm = () => {
+  const history = useHistory();
   const toast = useToast();
   const [isOpen, setIsOpen] = React.useState(false);
   const cancelRef = React.useRef();
@@ -99,15 +101,19 @@ const OrganizerForm = () => {
         <Flex align="start" direction="column" mt="1.25rem">
           <Flex justify="space-between" align="center" width="50vw">
             <Text fontSize="5xl">Dados da placa</Text>
-            {/* TODO remover token */}
-            <Link to="/">
-              <ButtonTertiary>Sair</ButtonTertiary>
-            </Link>
+            <ButtonTertiary
+              onClick={async () => {
+                await auth.signOut();
+                history.push("/");
+              }}
+            >
+              Sair
+            </ButtonTertiary>
           </Flex>
           <Flex justify="center" align="center" direction="column">
             <Formik
               initialValues={initialValues}
-              onSubmit={async (values, actions) => {
+              onSubmit={async (values) => {
                 const formattedValues = {
                   ...values,
                   people: csvJSON(values.people),

@@ -10,6 +10,7 @@ import {
 } from "../components";
 import { Link, useHistory } from "react-router-dom";
 import { Field, Form, Formik } from "formik";
+import { auth } from "./firebaseAuth";
 
 const Home = () => {
   const history = useHistory();
@@ -19,11 +20,19 @@ const Home = () => {
       <BreadCrumbs
         pages={[{ title: "Página inicial", to: "/", isCurrentPage: true }]}
       />
-      <Link to="/login">
-        <ButtonTertiary top="2rem" right="4.5rem" position="fixed">
-          Login
-        </ButtonTertiary>
-      </Link>
+      {!auth.currentUser ? (
+        <Link to="/login">
+          <ButtonTertiary top="2rem" right="4.5rem" position="fixed">
+            Login
+          </ButtonTertiary>
+        </Link>
+      ) : (
+        <Link to="/organizador">
+          <ButtonTertiary top="2rem" right="4.5rem" position="fixed">
+            Dados da placa
+          </ButtonTertiary>
+        </Link>
+      )}
       <Flex align="center" justify="center" mt="15vh">
         <Flex align="center" direction="column">
           <Image src={logoCCC} alt="Computação UFCG" w="18.75rem" />

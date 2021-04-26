@@ -104,7 +104,6 @@ const Board = () => {
                   borderColor={info.color}
                   hidden={loadingGroupImage}
                   onLoad={() => {
-                    // console.log("aaaaa", loadingGroupImage);
                     setLoadingGroupImage(false);
                   }}
                 />
