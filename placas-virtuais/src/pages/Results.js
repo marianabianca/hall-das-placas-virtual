@@ -79,16 +79,18 @@ const Results = () => {
                             {elem.data().name}
                           </Text>
                         </Flex>
-                        <ButtonSecondary
-                          size="sm"
-                          onClick={() =>
-                            history.push(
-                              `/placa/${elem.data().graduationSemester}`
-                            )
-                          }
+                        <Link
+                          to={{
+                            pathname: `/placa/${
+                              elem.data().graduationSemester
+                            }`,
+                            state: { searchTerm: searchTerm },
+                          }}
                         >
-                          Visualizar
-                        </ButtonSecondary>
+                          <ButtonSecondary size="sm">
+                            Visualizar
+                          </ButtonSecondary>
+                        </Link>
                       </Flex>
                       {i < results.length - 1 && <Divider my="0.5rem" />}
                     </>

@@ -9,13 +9,14 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import { BreadCrumbs, ButtonPrimary, MyBox } from "../components";
 import logoCCC from "../LogoCCC.png";
 import { db } from "./firebaseClient";
 
 const Board = () => {
   const history = useHistory();
+  const location = useLocation();
   const { semester } = useParams();
 
   const [info, setInfo] = useState(undefined);
@@ -65,7 +66,11 @@ const Board = () => {
           <BreadCrumbs
             pages={[
               { title: "Página inicial", to: "/", isCurrentPage: false },
-              { title: "Resultados", to: "/resultados", isCurrentPage: false },
+              {
+                title: "Resultados",
+                to: `/resultados/?search=${location.state.searchTerm ?? "all"}`,
+                isCurrentPage: false,
+              },
               { title: "Placa", to: "/placa", isCurrentPage: true },
             ]}
           />
@@ -81,7 +86,11 @@ const Board = () => {
             w="fit-content"
             pages={[
               { title: "Página inicial", to: "/", isCurrentPage: false },
-              { title: "Resultados", to: "/resultados", isCurrentPage: false },
+              {
+                title: "Resultados",
+                to: `/resultados/?search=${location.state.searchTerm ?? "all"}`,
+                isCurrentPage: false,
+              },
               { title: "Placa", to: "/placa", isCurrentPage: true },
             ]}
           />
