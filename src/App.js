@@ -8,7 +8,14 @@ import {
 } from "react-router-dom";
 
 import "./app.css";
-import { Board, Home, Login, OrganizerForm, Results } from "./pages";
+import {
+  Board,
+  ForgotPassword,
+  Home,
+  Login,
+  OrganizerForm,
+  Results,
+} from "./pages";
 import { auth } from "./pages/firebaseAuth";
 
 function App() {
@@ -21,6 +28,9 @@ function App() {
           </Route>
           <Route exact path="/login">
             <Login />
+          </Route>
+          <Route exact path="/esqueci-senha">
+            <ForgotPassword />
           </Route>
           <Route exact path="/resultados">
             <Results />

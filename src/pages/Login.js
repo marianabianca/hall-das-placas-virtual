@@ -14,7 +14,13 @@ import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { BreadCrumbs, ButtonGithub, ButtonPrimary, MyBox } from "../components";
+import {
+  BreadCrumbs,
+  ButtonGithub,
+  ButtonPrimary,
+  ButtonTertiary,
+  MyBox,
+} from "../components";
 import { signIn } from "./firebaseAuth";
 
 const Login = () => {
@@ -58,7 +64,7 @@ const Login = () => {
         <Text fontSize="4xl" mb="1rem">
           Login organizador
         </Text>
-        <MyBox minW="35vw" p="1.5rem">
+        <MyBox minW="30vw" p="1.5rem">
           <Formik
             initialValues={{ email: "", password: "" }}
             onSubmit={async (values) => {
@@ -129,11 +135,20 @@ const Login = () => {
                   >
                     Entrar
                   </ButtonPrimary>
-                  {/* TODO esqueci a senha */}
                 </Flex>
               </Form>
             )}
           </Formik>
+          <Flex align="center" justify="center">
+            <ButtonTertiary
+              mt="1.5rem"
+              type="button"
+              size="sm"
+              onClick={() => history.push("/esqueci-senha")}
+            >
+              Esqueci a senha
+            </ButtonTertiary>
+          </Flex>
         </MyBox>
       </Flex>
 
