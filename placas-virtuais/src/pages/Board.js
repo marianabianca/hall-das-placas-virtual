@@ -54,7 +54,7 @@ const Board = () => {
   useEffect(() => {
     if (info) {
       setLoadingGroupImage(true);
-      setLoadingIndividualImage(Array(info.people).fill(true));
+      setLoadingIndividualImage(Array(info.people.length).fill(true));
     }
   }, [info]);
 
@@ -62,7 +62,6 @@ const Board = () => {
     <>
       {!info ? (
         <>
-          {/* TODO voltar quando clicar em resultados */}
           <BreadCrumbs
             pages={[
               { title: "Página inicial", to: "/", isCurrentPage: false },
@@ -185,9 +184,11 @@ const Board = () => {
                           borderColor={info.color}
                           hidden={loadingIndividualImage[index]}
                           onLoad={() => {
-                            const loading = [...loadingIndividualImage];
-                            loading[index] = false;
-                            setLoadingIndividualImage(loading);
+                            setLoadingIndividualImage(
+                              loadingIndividualImage.map((v, i) =>
+                                i === index ? false : v
+                              )
+                            );
                           }}
                         />
                       </a>

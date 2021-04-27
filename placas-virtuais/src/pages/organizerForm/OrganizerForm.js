@@ -56,10 +56,10 @@ const OrganizerForm = () => {
 
   useEffect(() => {
     const getBoardDate = async () => {
-      const email = auth.currentUser.email;
+      const creatorID = auth.currentUser.uid;
       const boardData = await db
         .collection("placas")
-        .where("creatorEmail", "==", email)
+        .where("creatorID", "==", creatorID)
         .get();
       if (boardData.docs.length > 0) {
         const json2csvParser = new Parser();
@@ -139,7 +139,7 @@ const OrganizerForm = () => {
                   const formattedValues = {
                     ...values,
                     people: csvJSON(values.people),
-                    creatorEmail: auth.currentUser.email,
+                    creatorID: auth.currentUser.uid,
                   };
                   if (originalDoc) {
                     await db
