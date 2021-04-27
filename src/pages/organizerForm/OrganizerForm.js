@@ -45,7 +45,7 @@ const OrganizerForm = () => {
     sections: [],
   });
   const [loading, setLoading] = useState(true);
-  const [originalDoc, setOriginalDoc] = useState({});
+  const [originalDoc, setOriginalDoc] = useState(undefined);
   const peopleCSVFormat =
     "CSV separado por , (vírgula)\n" +
     "\nname: Nome do graduado (obrigatório)" +
@@ -75,19 +75,6 @@ const OrganizerForm = () => {
     };
     getBoardDate();
   }, []);
-
-  const hasErrors = (props) => {
-    const values = props.values;
-    const lackValues = !(
-      (values.name.length > 0) &
-      (values.graduationSemester.length > 0) &
-      (values.groupPhoto.length > 0) &
-      (values.color.length > 0) &
-      (values.people.length > 0)
-    );
-    const hasErrors = Object.keys(props.errors).length > 0;
-    return !(lackValues | hasErrors);
-  };
 
   // const onConfirm = () => {
   //   setIsOpen(false);
@@ -135,7 +122,7 @@ const OrganizerForm = () => {
             ) : (
               <Formik
                 initialValues={initialValues}
-                onSubmit={async (values) => {
+                onSubmit={async (values, actions) => {
                   const formattedValues = {
                     ...values,
                     people: csvJSON(values.people),
@@ -146,8 +133,35 @@ const OrganizerForm = () => {
                       .collection("placas")
                       .doc(originalDoc.id)
                       .update(formattedValues);
+                    toast({
+                      title: "",
+                      description: "Os dados da placa foram salvos.",
+                      status: "success",
+                      duration: 3000,
+                      position: "bottom-right",
+                      isClosable: true,
+                    });
                   } else {
-                    await db.collection("placas").add(formattedValues);
+                    try {
+                      await db.collection("placas").add(formattedValues);
+                      toast({
+                        title: "",
+                        description: "Os dados da placa foram salvos.",
+                        status: "success",
+                        duration: 3000,
+                        position: "bottom-right",
+                        isClosable: true,
+                      });
+                    } catch (e) {
+                      toast({
+                        title: "Ocorreu algum problema",
+                        description: e.message,
+                        status: "warning",
+                        duration: 3000,
+                        position: "bottom-right",
+                        isClosable: true,
+                      });
+                    }
                   }
                 }}
               >
@@ -282,20 +296,6 @@ const OrganizerForm = () => {
                         mb="1.25rem"
                         type="submit"
                         isLoading={props.isSubmitting}
-                        onClick={() => {
-                          const verification = hasErrors(props);
-                          toast({
-                            title: verification ? "Sucesso" : "Atenção",
-                            description: verification
-                              ? "Os dados da turma foram salvos!"
-                              : Object.values(props.errors)[0] ??
-                                "Preencha todos os dados.",
-                            status: verification ? "success" : "warning",
-                            duration: 3000,
-                            position: "bottom-right",
-                            isClosable: true,
-                          });
-                        }}
                       >
                         Salvar
                       </ButtonPrimary>
