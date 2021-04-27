@@ -14,29 +14,42 @@ import { db } from "./firebaseClient";
 const Results = () => {
   const history = useHistory();
   const [results, setResults] = useState(undefined);
+  const [filterResults, setFilterResults] = useState(undefined);
   const query = new URLSearchParams(useLocation().search);
   const searchTerm = query.get("search");
 
   useEffect(() => {
-    if (searchTerm && RegExp("(19|20)[0-9][0-9]\\.[0-3]").test(searchTerm)) {
-    } else {
-      const getResults = async () => {
-        const result = (await db.collection("placas").get()).docs;
-        result.sort(sortByGraduationSemester);
-        if (searchTerm && searchTerm !== "all") {
-          const filtered = result.filter((e) =>
-            e
-              .data()
-              .people.some((p) => p.name.toLowerCase().includes(searchTerm))
-          );
-          setResults(filtered);
-        } else {
-          setResults(result);
-        }
-      };
-      getResults();
-    }
+    const getResults = async () => {
+      const results = (await db.collection("placas").get()).docs;
+      results.sort(sortByGraduationSemester);
+      setResults(results);
+    };
+    getResults();
   }, [searchTerm]);
+
+  useEffect(() => {
+    const regexYear = "(19|20)[0-9][0-9]";
+    const regexSemester = "\\.[0-3]";
+    const matchYear =
+      RegExp(regexYear).test(searchTerm) ||
+      RegExp(regexYear + regexSemester).test(searchTerm);
+
+    if (searchTerm && results) {
+      if (matchYear) {
+        const filtered = results.filter((e) =>
+          e.data().graduationSemester.toLowerCase().includes(searchTerm)
+        );
+        setFilterResults(filtered);
+      } else if (searchTerm !== "all") {
+        const filtered = results.filter((e) =>
+          e.data().people.some((p) => p.name.toLowerCase().includes(searchTerm))
+        );
+        setFilterResults(filtered);
+      } else {
+        setFilterResults(results);
+      }
+    }
+  }, [searchTerm, results]);
 
   const sortByGraduationSemester = (a, b) => {
     const x = a.data().graduationSemester;
@@ -66,9 +79,9 @@ const Results = () => {
           </Text>
           <Flex direction="column" align="center" justify="center">
             <MyBox minW="50vw">
-              {results ? (
-                results.length > 0 ? (
-                  results.map((elem, i) => (
+              {filterResults ? (
+                filterResults.length > 0 ? (
+                  filterResults.map((elem, i) => (
                     <>
                       <Flex justify="space-between" align="center">
                         <Flex direction="column" align="start">
@@ -92,7 +105,7 @@ const Results = () => {
                           </ButtonSecondary>
                         </Link>
                       </Flex>
-                      {i < results.length - 1 && <Divider my="0.5rem" />}
+                      {i < filterResults.length - 1 && <Divider my="0.5rem" />}
                     </>
                   ))
                 ) : (
