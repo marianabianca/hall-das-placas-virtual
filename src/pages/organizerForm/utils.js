@@ -6,6 +6,9 @@ export const csvJSON = (csv) => {
   for (var i = 1; i < lines.length; i++) {
     var obj = {};
     var currentline = lines[i].split(",");
+    if (currentline.length !== headers.length) {
+      throw new Error("Header and object don't have the same lenght");
+    }
 
     for (var j = 0; j < headers.length; j++) {
       obj[headers[j]] = currentline[j] ?? "";

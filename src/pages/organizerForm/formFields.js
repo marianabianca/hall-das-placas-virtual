@@ -35,15 +35,32 @@ const validateGroupPhoto = (url) => {
   return error;
 };
 
-const validateCSV = (value) => {
+const validateCSV = (csv) => {
   let error;
-  if (!value) {
-    error = "CSV com dados dos graduandos é obrigatório.";
-  }
-  try {
-    csvJSON(value);
-  } catch (e) {
-    error = "O texto não está no formato correto";
+  if (!csv) {
+    error = "CSV com dados da turma é obrigatório.";
+  } else {
+    try {
+      csvJSON(csv);
+      const csvValues = csv.split("\n");
+      const headerAtt = [
+        "name",
+        "enterSemester",
+        "graduationSemester",
+        "individualPhoto",
+        "linkedin",
+      ];
+      const validHeader = headerAtt.every((att) => csvValues[0].includes(att));
+      if (!validHeader) {
+        error =
+          "CSV não contém cabeçalho ou não contém todos os campos de cabeçalho obrigatórios.";
+      }
+      if (csvValues.length < 2) {
+        error = "O CSV está sem conteúdo.";
+      }
+    } catch (e) {
+      error = "O texto não está no formato correto";
+    }
   }
   return error;
 };
