@@ -102,7 +102,10 @@ const OrganizerForm = () => {
       <Flex align="center" justify="center" direction="column">
         <Flex align="start" direction="column" mt="1.25rem">
           <Flex justify="space-between" align="center" width="50vw">
-            <Text fontSize="5xl">Dados da placa</Text>
+            <Text fontSize="5xl">
+              {!loading &&
+                (!originalDoc ? <>Criar nova placa</> : <>Atualizar placa</>)}
+            </Text>
             <ButtonTertiary
               onClick={async () => {
                 await auth.signOut();
