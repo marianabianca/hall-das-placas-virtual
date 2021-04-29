@@ -67,7 +67,9 @@ const Board = () => {
               { title: "Página inicial", to: "/", isCurrentPage: false },
               {
                 title: "Resultados",
-                to: `/resultados/?search=${location.state.searchTerm ?? "all"}`,
+                to: `/resultados/?search=${
+                  location.state?.searchTerm ?? "all"
+                }`,
                 isCurrentPage: false,
               },
               { title: "Placa", to: "/placa", isCurrentPage: true },
@@ -87,7 +89,9 @@ const Board = () => {
               { title: "Página inicial", to: "/", isCurrentPage: false },
               {
                 title: "Resultados",
-                to: `/resultados/?search=${location.state.searchTerm ?? "all"}`,
+                to: `/resultados/?search=${
+                  location.state?.searchTerm ?? "all"
+                }`,
                 isCurrentPage: false,
               },
               { title: "Placa", to: "/placa", isCurrentPage: true },
