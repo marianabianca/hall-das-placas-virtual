@@ -28,8 +28,8 @@ import {
 import { organizerFields } from "./formFields";
 import SectionsForm from "./SectionsForm";
 import { csvJSON } from "./utils";
-import { db } from "../firebaseClient";
-import { auth } from "../firebaseAuth";
+import { db } from "../../firebase/firebaseClient";
+import { auth } from "../../firebase/firebaseAuth";
 
 const OrganizerForm = () => {
   const history = useHistory();

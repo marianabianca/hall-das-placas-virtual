@@ -9,7 +9,7 @@ import {
   MyBox,
 } from "../components";
 import { IconGithub } from "../icons";
-import { db } from "./firebaseClient";
+import { db } from "../firebase/firebaseClient";
 
 const Results = () => {
   const history = useHistory();

@@ -11,8 +11,8 @@ import {
 import React, { useEffect, useState } from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { BreadCrumbs, ButtonPrimary, MyBox } from "../components";
-import logoCCC from "../LogoCCC.png";
-import { db } from "./firebaseClient";
+import logoCCC from "../images/LogoCCC.png";
+import { db } from "../firebase/firebaseClient";
 
 const Board = () => {
   const history = useHistory();

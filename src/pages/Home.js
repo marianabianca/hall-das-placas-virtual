@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Flex, Image, Input, Text } from "@chakra-ui/react";
 
-import logoCCC from "../LogoCCC.png";
+import logoCCC from "../images/LogoCCC.png";
 import {
   BreadCrumbs,
   ButtonGithub,
@@ -10,7 +10,7 @@ import {
 } from "../components";
 import { Link, useHistory } from "react-router-dom";
 import { Field, Form, Formik } from "formik";
-import { auth } from "./firebaseAuth";
+import { auth } from "../firebase/firebaseAuth";
 
 const Home = () => {
   const history = useHistory();

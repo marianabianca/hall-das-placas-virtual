@@ -9,7 +9,7 @@ import {
   ButtonTertiary,
   MyBox,
 } from "../components";
-import { auth } from "./firebaseAuth";
+import { auth } from "../firebase/firebaseAuth";
 
 const ForgotPassword = () => {
   const toast = useToast();

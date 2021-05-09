@@ -21,7 +21,7 @@ import {
   ButtonTertiary,
   MyBox,
 } from "../components";
-import { signIn } from "./firebaseAuth";
+import { signIn } from "../firebase/firebaseAuth";
 
 const Login = () => {
   const [show, setShow] = React.useState(false);

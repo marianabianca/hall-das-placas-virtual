@@ -16,7 +16,7 @@ import {
   OrganizerForm,
   Results,
 } from "./pages";
-import { auth } from "./pages/firebaseAuth";
+import { auth } from "./firebase/firebaseAuth";
 
 function App() {
   return (
