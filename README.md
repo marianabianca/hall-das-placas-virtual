@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# [Hall das Placas Virtual](https://hall-das-placas-virtual.vercel.app/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+O Hall das Placas Virtual é uma plataforma para criação e visualização de placas
+de formatura virtuais.
 
-## Available Scripts
+## Executar localmente
 
-In the project directory, you can run:
+Primeiramente, você precisa criar um novo projeto no Firebase.
 
-### `yarn start`
+### Configurando o Firebase
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Vá até o [console do Firebase](https://console.firebase.google.com/) e crie um
+novo projeto com o nome que desejar.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Então, utilizando a barra ao lado esquerdo, adicione o produto `Authentication`,
+basta clicar em `primeiros passos` em sua página. Selecione a opção `E-mail/senha`.
 
-### `yarn test`
+Agora adicione o produto `Firestore`. Selecione ele na barra ao lado esquerdo, e
+então clique em `criar banco de dados` em sua página.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Após isso, vá até as `Configurações do projeto`, clicando no botão de engrenagem
+na barra do lado esquerdo. Na aba `Geral`, na seção `Seus aplicativos`, crie um
+novo aplicativo `Web`, que é representado pelo botão com o símbolo `</>`.
 
-### `yarn build`
+Crie um arquivo `.env` na pasta raiz do Halldas Placas Virtual, copie os dados
+do `firebaseConfig`, e cole-os no `.env` criado seguindo o formato do `.example.env`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Executando
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Após concluir a etapa de configuração do projeto no Firebase, para executar a
+aplicação rode os comandos abaixo na pasta raiz:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+yarn
+yarn start
+```
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Prontinho! Seu projeto deverá estar rodando e funcionando perfeitamente após isso!
